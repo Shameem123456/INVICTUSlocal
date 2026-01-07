@@ -2,48 +2,95 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Embedded Google Form</title>
+    <title>Google Form Select Submission</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
         body {
-            margin: 0;
-            padding: 0;
             font-family: Arial, sans-serif;
             background: #f4f4f4;
-        }
-
-        .iframe-container {
-            width: 100%;
-            max-width: 800px;
-            margin: auto;
             padding: 20px;
         }
-
-        iframe {
-            width: 100%;
-            height: 700px;
-            border: none;
-            background: white;
+        .form-container {
+            max-width: 400px;
+            margin: auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-
-        @media (max-width: 600px) {
-            iframe {
-                height: 900px;
-            }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        .success {
+            display: none;
+            text-align: center;
+            color: green;
+            margin-top: 15px;
         }
     </style>
+
+    <script>
+        let submitted = false;
+        function showSuccess() {
+            if (submitted) {
+                document.getElementById("successMsg").style.display = "block";
+            }
+        }
+    </script>
 </head>
 <body>
 
-<div class="iframe-container">
-    <iframe
-        src="https://docs.google.com/forms/d/e/1FAIpQLSf6BPIQLBLEExYobswwoVIypFjQ6foy-XozQGer-yTthRc-Pg/viewform?embedded=true"
-        loading="lazy"
-        allowfullscreen>
-        Loading…
-    </iframe>
+<div class="form-container">
+    <h2>Choose One Option</h2>
+
+    <form
+        action="https://docs.google.com/forms/d/e/1FAIpQLSf6BPIQLBLEExYobswwoVIypFjQ6foy-XozQGer-yTthRc-Pg/formresponse"
+        method="POST"
+        target="hidden_iframe"
+        onsubmit="submitted=true; showSuccess();">
+
+        <!-- LABEL + SELECT -->
+        <label for="choice">Your Selection</label>
+        <select id="choice" name="entry.765209568" required>
+            <option value="">-- Select an option --</option>
+            <option value="Djjdjdjdjjd">Djjdjdjdjjd</option>
+            <option value="Ejjejdjdnnd">Ejjejdjdnnd</option>
+        </select>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="successMsg" class="success">
+        ✅ Response submitted successfully
+    </div>
 </div>
 
+<!-- Hidden iframe to avoid Google error page -->
+<iframe name="hidden_iframe" style="display:none;"></iframe>
+
 </body>
-</html>
+    </html>
