@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Open Google Form</title>
+    <title>Submit Form</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
@@ -19,12 +19,12 @@
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
+        .option {
+            margin-bottom: 12px;
+        }
         label {
             margin-left: 6px;
             cursor: pointer;
-        }
-        .option {
-            margin-bottom: 12px;
         }
         button {
             width: 100%;
@@ -35,11 +35,30 @@
             border-radius: 4px;
             font-size: 16px;
             cursor: pointer;
+            margin-top: 10px;
         }
         button:hover {
             background: #2563eb;
         }
+        .success {
+            display: none;
+            text-align: center;
+            color: green;
+            margin-top: 15px;
+            font-weight: bold;
+        }
     </style>
+
+    <script>
+        let submitted = false;
+
+        function handleSubmit() {
+            submitted = true;
+            setTimeout(() => {
+                document.getElementById("successMsg").style.display = "block";
+            }, 800);
+        }
+    </script>
 </head>
 <body>
 
@@ -47,11 +66,10 @@
     <h2>Select One Option</h2>
 
     <form
-        action="https://docs.google.com/forms/d/e/1FAIpQLSf6BPIQLBLEExYobswwoVIypFjQ6foy-XozQGer-yTthRc-Pg/viewform"
-        method="GET">
-
-        <!-- Required for Google prefill -->
-        <input type="hidden" name="usp" value="pp_url">
+        action="https://docs.google.com/forms/d/e/1FAIpQLSf6BPIQLBLEExYobswwoVIypFjQ6foy-XozQGer-yTthRc-Pg/formresponse"
+        method="POST"
+        target="hidden_iframe"
+        onsubmit="handleSubmit();">
 
         <div class="option">
             <input type="radio" id="opt1" name="entry.765209568" value="Ejjejdjdnnd" required>
@@ -63,9 +81,16 @@
             <label for="opt2">Djjdjdjdjjd</label>
         </div>
 
-        <button type="submit">Continue</button>
+        <button type="submit">Submit</button>
     </form>
+
+    <div id="successMsg" class="success">
+        ✅ Submitted successfully
+    </div>
 </div>
+
+<!-- Hidden iframe (this hides Google Form completely) -->
+<iframe name="hidden_iframe" style="display:none;"></iframe>
 
 </body>
 </html>
