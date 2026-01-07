@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Google Form Radio Submission</title>
+    <title>Submit Response</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,30 +13,48 @@
         }
         .form-container {
             max-width: 400px;
-            background: #fff;
+            margin: auto;
+            background: #ffffff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            margin: auto;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
         }
         .option {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         button {
             width: 100%;
             padding: 10px;
             background: #3b82f6;
-            color: white;
+            color: #ffffff;
             border: none;
             border-radius: 4px;
             font-size: 16px;
             cursor: pointer;
-            margin-top: 15px;
         }
         button:hover {
             background: #2563eb;
         }
+        .success {
+            display: none;
+            text-align: center;
+            color: green;
+            margin-top: 15px;
+        }
     </style>
+
+    <script>
+        let submitted = false;
+        function showSuccess() {
+            if (submitted) {
+                document.getElementById("successMsg").style.display = "block";
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -44,21 +63,30 @@
 
     <form
         action="https://docs.google.com/forms/d/e/1FAIpQLSf6BPIQLBLEExYobswwoVIypFjQ6foy-XozQGer-yTthRc-Pg/formresponse"
-        method="POST">
+        method="POST"
+        target="hidden_iframe"
+        onsubmit="submitted=true; showSuccess();">
 
         <div class="option">
-            <input type="radio" id="opt1" name="entry.765209568" value="Djjdjdjdjjd">
+            <input type="radio" id="opt1" name="entry.765209568" value="Djjdjdjdjjd" required>
             <label for="opt1">Djjdjdjdjjd</label>
         </div>
 
         <div class="option">
-            <input type="radio" id="opt2" name="entry.765209568" value="Ejjejdjdnnd" checked>
+            <input type="radio" id="opt2" name="entry.765209568" value="Ejjejdjdnnd">
             <label for="opt2">Ejjejdjdnnd</label>
         </div>
 
         <button type="submit">Submit</button>
     </form>
+
+    <div id="successMsg" class="success">
+        ✅ Response submitted successfully
+    </div>
 </div>
+
+<!-- Hidden iframe prevents Google error page -->
+<iframe name="hidden_iframe" style="display:none;"></iframe>
 
 </body>
 </html>
