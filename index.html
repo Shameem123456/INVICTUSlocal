@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Google Form Select Submission</title>
+    <title>Open Google Form</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
@@ -20,23 +20,17 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 6px;
+            margin-left: 6px;
+            cursor: pointer;
         }
-        select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-            font-size: 15px;
+        .option {
+            margin-bottom: 12px;
         }
         button {
             width: 100%;
             padding: 10px;
             background: #3b82f6;
-            color: white;
+            color: #ffffff;
             border: none;
             border-radius: 4px;
             font-size: 16px;
@@ -45,52 +39,33 @@
         button:hover {
             background: #2563eb;
         }
-        .success {
-            display: none;
-            text-align: center;
-            color: green;
-            margin-top: 15px;
-        }
     </style>
-
-    <script>
-        let submitted = false;
-        function showSuccess() {
-            if (submitted) {
-                document.getElementById("successMsg").style.display = "block";
-            }
-        }
-    </script>
 </head>
 <body>
 
 <div class="form-container">
-    <h2>Choose One Option</h2>
+    <h2>Select One Option</h2>
 
     <form
-        action="https://docs.google.com/forms/d/e/1FAIpQLSf6BPIQLBLEExYobswwoVIypFjQ6foy-XozQGer-yTthRc-Pg/formresponse"
-        method="POST"
-        target="hidden_iframe"
-        onsubmit="submitted=true; showSuccess();">
+        action="https://docs.google.com/forms/d/e/1FAIpQLSf6BPIQLBLEExYobswwoVIypFjQ6foy-XozQGer-yTthRc-Pg/viewform"
+        method="GET">
 
-        <!-- LABEL + SELECT -->
-        <label for="choice">Your Selection</label>
-        <select id="choice" name="entry.765209568" required>
-            <option value="">-- Select an option --</option>
-            <option value="Djjdjdjdjjd">Djjdjdjdjjd</option>
-            <option value="Ejjejdjdnnd">Ejjejdjdnnd</option>
-        </select>
+        <!-- Required for Google prefill -->
+        <input type="hidden" name="usp" value="pp_url">
 
-        <button type="submit">Submit</button>
+        <div class="option">
+            <input type="radio" id="opt1" name="entry.765209568" value="Ejjejdjdnnd" required>
+            <label for="opt1">Ejjejdjdnnd</label>
+        </div>
+
+        <div class="option">
+            <input type="radio" id="opt2" name="entry.765209568" value="Djjdjdjdjjd">
+            <label for="opt2">Djjdjdjdjjd</label>
+        </div>
+
+        <button type="submit">Continue</button>
     </form>
-
-    <div id="successMsg" class="success">
-        ✅ Response submitted successfully
-    </div>
 </div>
 
-<!-- Hidden iframe to avoid Google error page -->
-<iframe name="hidden_iframe" style="display:none;"></iframe>
-
 </body>
-    </html>
+</html>
