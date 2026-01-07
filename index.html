@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Your Work | INVICTUS Newsletter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a192f 0%, #0c2340 50%, #112240 100%);
+            color: #e6f1ff;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background decorative elements */
+        .bg-blur-circle {
+            position: fixed;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(66, 153, 225, 0.15) 0%, rgba(66, 153, 225, 0) 70%);
+            z-index: -1;
+        }
+
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 5%;
+        }
+
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            bottom: 10%;
+            right: 10%;
+        }
+
+        .circle-3 {
+            width: 150px;
+            height: 150px;
+            top: 50%;
+            left: 80%;
+        }
+
+        /* Back button styling */
+        .back-button {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            z-index: 100;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: rgba(30, 58, 138, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 149, 237, 0.3);
+            border-radius: 50px;
+            color: #e6f1ff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-button:hover {
+            background: rgba(30, 64, 175, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            border-color: rgba(100, 149, 237, 0.5);
+        }
+
+        .back-button i {
+            font-size: 1.1rem;
+        }
+
+        /* Header section */
+        .header {
+            min-height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 25, 47, 0.85);
+            z-index: -1;
+        }
+
+        .header-content {
+            max-width: 1000px;
+            padding: 40px;
+            background: rgba(15, 35, 70, 0.4);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            border: 1px solid rgba(100, 149, 237, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-content::after {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(45deg, rgba(66, 153, 225, 0.1), rgba(30, 64, 175, 0.1), rgba(66, 153, 225, 0.1));
+            border-radius: 20px;
+            z-index: -1;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #60a5fa, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #93c5fd;
+            font-weight: 400;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .invictus-logo {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #60a5fa, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        /* Content container */
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 20px 60px;
+        }
+
+        /* Form container */
+        .form-container {
+            background: rgba(15, 35, 70, 0.4);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            border: 1px solid rgba(100, 149, 237, 0.2);
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, #60a5fa, #3b82f6);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #93c5fd;
+        }
+
+        .form-header p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #c7d2fe;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-note {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(30, 58, 138, 0.3);
+            border-radius: 10px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .form-note p {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        /* Iframe styling */
+        .form-iframe-container {
+            position: relative;
+            width: 100%;
+            height: 1300px;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(100, 149, 237, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: transparent;
+        }
+
+        /* Loading overlay for iframe */
+        .iframe-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 35, 70, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            transition: opacity 0.5s ease;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(100, 149, 237, 0.3);
+            border-top-color: #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* What to submit section */
+        .submission-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .info-card {
+            background: rgba(30, 58, 138, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(100, 149, 237, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(100, 149, 237, 0.4);
+        }
+
+        .info-icon {
+            font-size: 2.5rem;
+            color: #3b82f6;
+            margin-bottom: 20px;
+        }
+
+        .info-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #93c5fd;
+        }
+
+        .info-card ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .info-card li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .info-card li:before {
+            content: "•";
+            color: #3b82f6;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: 5px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(100, 149, 237, 0.2);
+            color: #93c5fd;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #60a5fa, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 15px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .form-iframe-container {
+                height: 1400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.8rem;
+            }
+            
+            .header h2 {
+                font-size: 1.5rem;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+            }
+            
+            .form-header h2 {
+                font-size: 2rem;
+            }
+            
+            .form-iframe-container {
+                height: 1500px;
+            }
+            
+            .back-button {
+                top: 15px;
+                left: 15px;
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+            
+            .submission-info {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2.3rem;
+            }
+            
+            .header-content {
+                padding: 25px 20px;
+            }
+            
+            .form-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .form-iframe-container {
+                height: 1600px;
+            }
+            
+            .invictus-logo {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background decorative elements -->
+    <div class="bg-blur-circle circle-1"></div>
+    <div class="bg-blur-circle circle-2"></div>
+    <div class="bg-blur-circle circle-3"></div>
+
+    <!-- Back button -->
+    <a href="#" class="back-button" id="backButton">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back to Home</span>
+    </a>
+
+    <!-- Header section -->
+    <section class="header">
+        <div class="header-content">
+            <div class="invictus-logo">INVICTUS</div>
+            <h1>Share Your Creativity</h1>
+            <h2>Become Part of the INVICTUS Family</h2>
+            <p>Have a poem, story, or essay you'd like to share? Submit your work to be featured in our monthly newsletter. We welcome submissions from all F.Y.U.G.P students across the University of Kerala.</p>
+            <p>Your voice matters. Share your thoughts, creativity, and perspectives with our community.</p>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <div class="content-container">
+        <!-- Form container -->
+        <section class="form-container">
+            <div class="form-header">
+                <h2>Submission Form</h2>
+                <p>Fill out the form below to submit your poem, story, essay, or any other creative work for consideration in the INVICTUS newsletter. Please ensure you provide all necessary details for us to properly review and potentially publish your submission.</p>
+            </div>
+
+            <div class="form-note">
+                <p><i class="fas fa-info-circle"></i> All submissions will be reviewed by our editorial team. We'll contact you if your work is selected for publication.</p>
+                <p><i class="fas fa-clock"></i> Please allow 2-3 weeks for our team to review your submission.</p>
+            </div>
+
+            <!-- Iframe container for Google Form -->
+            <div class="form-iframe-container">
+                <div class="iframe-loading" id="loadingOverlay">
+                    <div class="spinner"></div>
+                    <p>Loading submission form...</p>
+                </div>
+                <iframe 
+                    src="https://docs.google.com/forms/d/e/1FAIpQLSfwK7LGZmZuOpRDT3nBB2MEcnVgimv4mNh8_1KSC9ANw49xPA/viewform?embedded=true" 
+                    class="form-iframe" 
+                    id="submissionForm"
+                    onload="hideLoading()">
+                    Loading…
+                </iframe>
+            </div>
+        </section>
+
+        <!-- What to submit section -->
+        <section class="form-container">
+            <div class="form-header">
+                <h2>What Can You Submit?</h2>
+                <p>INVICTUS welcomes a variety of creative and literary works from students. Here are some examples of what you can submit:</p>
+            </div>
+
+            <div class="submission-info">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-pen-alt"></i>
+                    </div>
+                    <h3>Creative Writing</h3>
+                    <ul>
+                        <li>Original poems (any style)</li>
+                        <li>Short stories & fiction</li>
+                        <li>Personal essays & memoirs</li>
+                        <li>Plays & screenwriting excerpts</li>
+                        <li>Creative non-fiction</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <h3>Articles & Opinion Pieces</h3>
+                    <ul>
+                        <li>Campus news & events</li>
+                        <li>Social commentary</li>
+                        <li>Political analysis</li>
+                        <li>Educational topics</li>
+                        <li>Cultural reviews</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>Visual & Other Arts</h3>
+                    <ul>
+                        <li>Original artwork (digital or scanned)</li>
+                        <li>Photography (campus life, nature)</li>
+                        <li>Comics & illustrations</li>
+                        <li>Cartoons & caricatures</li>
+                        <li>Designs & graphics</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="form-note" style="margin-top: 40px;">
+                <p><i class="fas fa-lightbulb"></i> <strong>Submission Guidelines:</strong> Please ensure your work is original and unpublished. Include your name, course, and contact information. Written submissions should not exceed 1500 words. For visual art, ensure images are high quality.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">INVICTUS</div>
+        <p>Monthly Newsletter of F.Y.U.G.P Men's Hostel, University of Kerala, Kariavattom Campus</p>
+        <p>Submit your work and join our community of creative thinkers and writers</p>
+        <p>&copy; <span id="currentYear"></span> All Rights Reserved | A Platform for Student Expression</p>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Hide loading overlay when iframe loads
+        function hideLoading() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            loadingOverlay.style.opacity = '0';
+            setTimeout(() => {
+                loadingOverlay.style.display = 'none';
+            }, 500);
+        }
+        
+        // Back button functionality
+        document.getElementById('backButton').addEventListener('click', function(e) {
+            // For now, we'll just show an alert. Replace with actual navigation when you have the target URL.
+            e.preventDefault();
+            alert('Back button clicked! Update the href attribute in the HTML to link to your desired page.');
+            
+            // Uncomment the line below and update with your actual URL when ready
+            // window.location.href = "invictus-home.html";
+        });
+        
+        // Iframe fallback in case it doesn't load properly
+        setTimeout(() => {
+            const iframe = document.getElementById('submissionForm');
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            
+            // If iframe hasn't loaded after 10 seconds, show direct link
+            if (loadingOverlay.style.display !== 'none') {
+                loadingOverlay.innerHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #fbbf24; margin-bottom: 20px;"></i>
+                        <h3 style="margin-bottom: 15px; color: #93c5fd;">Form Loading Slowly</h3>
+                        <p style="margin-bottom: 20px;">The submission form is taking longer than expected to load.</p>
+                        <a href="https://forms.gle/12WNXNrBMWK6Rbu79" target="_blank" style="
+                            display: inline-block;
+                            padding: 12px 30px;
+                            background: linear-gradient(to right, #3b82f6, #60a5fa);
+                            color: white;
+                            text-decoration: none;
+                            border-radius: 50px;
+                            font-weight: 600;
+                            margin-top: 10px;
+                        ">
+                            Open Form in New Tab
+                        </a>
+                    </div>
+                `;
+            }
+        }, 10000);
+    </script>
+</body>
+  </html>
