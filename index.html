@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Submit Your Work</h2>
+
+<form id="form">
+  <input name="email" type="email" placeholder="Email" required><br>
+  <button type="button" onclick="sendOTP()">Send OTP</button><br>
+
+  <input id="otp" placeholder="OTP">
+  <button type="button" onclick="verifyOTP()">Verify</button><br><br>
+
+  <input name="name" placeholder="Name"><br>
+  <input name="department" placeholder="Department"><br>
+  <input name="year" placeholder="Year"><br>
+  <input name="workType" placeholder="Work Type"><br>
+
+  <select name="consent">
+    <option value="Yes">Yes</option>
+    <option value="No">No</option>
+  </select><br><br>
+
+  <input type="file" name="file" required><br><br>
+
+  <button>Submit</button>
+</form>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
+
+function sendOTP() {
+  const email = document.querySelector("[name=email]").value;
+  fetch(`${SCRIPT_URL}?action=sendOTP&email=${email}`);
+}
+
+function verifyOTP() {
+  const email = document.querySelector("[name=email]").value;
+  const otp = document.getElementById("otp").value;
+  fetch(`${SCRIPT_URL}?action=verifyOTP&email=${email}&otp=${otp}`);
+}
+
+document.getElementById("form").onsubmit = async e => {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const res = await fetch("/api/upload", { method: "POST", body: fd });
+  alert((await res.json()).status);
+};
+</script>
+
+</body>
+</html>
