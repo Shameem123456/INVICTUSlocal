@@ -1,3 +1,4 @@
+// /api/upload.js
 import formidable from "formidable";
 import { v2 as cloudinary } from "cloudinary";
 
@@ -19,17 +20,27 @@ export default async function handler(req, res) {
     try {
       if (err) throw err;
 
+      if (!files.file) {
+        return res.status(400).json({ status: "error", message: "No file uploaded" });
+      }
+
       const file = files.file[0];
 
-      // Upload to Cloudinary
+      // Upload to Cloudinary (public)
       const uploaded = await cloudinary.uploader.upload(file.filepath, {
-        resource_type: "auto" // supports images, PDFs, videos, etc.
+        resource_type: "auto",   // detects PDF, image, video automatically
+        folder: "uploads",       // optional folder in your Cloudinary
+        overwrite: true           // overwrite if same filename
       });
 
-      res.status(200).json({ status: "success", fileUrl: uploaded.secure_url });
+      // Return public URL
+      res.status(200).json({
+        status: "success",
+        fileUrl: uploaded.secure_url
+      });
 
     } catch (error) {
       res.status(500).json({ status: "error", message: error.toString() });
     }
   });
-        }
+}
