@@ -423,9 +423,7 @@
     <a href="#" class="back-button" id="backButton">
         <i class="fas fa-arrow-left"></i>
         <span>Back to Home</span>
-    </a>
-
-    <br>
+    </a><br>
     <!-- Main content -->
     <div class="content-container">
         <!-- Form container -->
@@ -520,16 +518,6 @@
     <script>
         // Set current year in footer
         document.getElementById('currentYear').textContent = new Date().getFullYear();
-        
-        // Back button functionality
-        document.getElementById('backButton').addEventListener('click', function(e) {
-            // For now, we'll just show an alert. Replace with actual navigation when you have the target URL.
-            e.preventDefault();
-            alert('Back button clicked! Update the href attribute in the HTML to link to your desired page.');
-            
-            // Uncomment the line below and update with your actual URL when ready
-            // window.location.href = "invictus-home.html";
-        });
     </script>
 </body>
   </html>
